@@ -1,8 +1,30 @@
-import express from 'express'
-import mongoose from 'mongoose'
-import cors from 'cors'
+const express = require('express');
+const mongoose   = require('mongoose');
+const cors = require('cors');
+const dotenv = require('dotenv');
 
 const app = express();
+dotenv.config({path: "./config.env"})
+
+const PORT = process.env.PORT || 8000;
+
+//MONGODB
+const CONNECTION_URL = process.env.CONNECTION_URL;
+mongoose.connect(CONNECTION_URL , {
+    useNewUrlParser: true,
+    useUnifiedTopology: true
+}).then(()=> console.log("connection for mongoDB has been successful..."))
+.catch((err) => console.log(`connection for mongoDB has been failed --> error : ${err}`));
+// mongoose.set('useFindAndModify' , false);
+
 
 //MIDDLEWARE
 app.use(express.urlencoded({extended:false}));
+app.use(cors());
+
+
+//APP LISTENER
+app.listen(PORT , (err)=>{
+    if(err) console.log("Failed to run server")
+    else console.log(`Server listening successfully on PORT ${PORT}` )
+})
