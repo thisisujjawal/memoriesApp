@@ -1,11 +1,12 @@
 const express = require('express');
-const mongoose   = require('mongoose');
+const mongoose = require('mongoose');
 const cors = require('cors');
 const dotenv = require('dotenv');
+const postRoutes = require('./routes/posts.js');
 
+//CONFIGURATION
 const app = express();
 dotenv.config({path: "./config.env"})
-
 const PORT = process.env.PORT || 8000;
 
 //MONGODB
@@ -19,9 +20,18 @@ mongoose.connect(CONNECTION_URL , {
 
 
 //MIDDLEWARE
-app.use(express.urlencoded({extended:false}));
+app.use(express.json({
+    extended:true,
+    limit:"30mb"
+}));
+app.use(express.urlencoded({
+    extended:true,
+    limit:"30mb"    
+}));
 app.use(cors());
 
+//ROUTES
+app.use('/posts' , postRoutes);
 
 //APP LISTENER
 app.listen(PORT , (err)=>{
