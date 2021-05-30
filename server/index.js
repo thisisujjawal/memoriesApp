@@ -16,7 +16,7 @@ mongoose.connect(CONNECTION_URL , {
     useUnifiedTopology: true
 }).then(()=> console.log("connection for mongoDB has been successful..."))
 .catch((err) => console.log(`connection for mongoDB has been failed --> error : ${err}`));
-// mongoose.set('useFindAndModify' , false);
+mongoose.set('useFindAndModify' , false);
 
 
 //MIDDLEWARE
