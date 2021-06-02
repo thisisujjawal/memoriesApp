@@ -3,6 +3,7 @@ const mongoose = require('mongoose');
 const cors = require('cors');
 const dotenv = require('dotenv');
 const postRoutes = require('./routes/posts.js');
+const userRoutes = require('./routes/users.js');
 
 //CONFIGURATION
 const app = express();
@@ -32,6 +33,7 @@ app.use(cors());
 
 //ROUTES
 app.use('/posts' , postRoutes);
+app.use('/user', userRoutes);
 
 //APP LISTENER
 app.listen(PORT , (err)=>{
